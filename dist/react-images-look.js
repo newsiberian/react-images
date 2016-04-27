@@ -9145,7 +9145,9 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 
 var _react2 = _interopRequireDefault(_react);
 
-// import look from 'react-look';
+var _reactLook = require('react-look');
+
+var _reactLook2 = _interopRequireDefault(_reactLook);
 
 var Fade = (function (_Component) {
 	_inherits(Fade, _Component);
@@ -9230,11 +9232,11 @@ Fade.defaultProps = {
 	ref: 'element'
 };
 
-exports['default'] = Fade;
+exports['default'] = (0, _reactLook2['default'])(Fade);
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],217:[function(require,module,exports){
+},{"react-look":8}],217:[function(require,module,exports){
 (function (global){
 'use strict';
 

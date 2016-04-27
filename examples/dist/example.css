@@ -1,5 +1,5 @@
 body {
-  color: #333333;
+  color: #333;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.4;
@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 a {
-  color: #00d7ff;
+  color: #00D7FF;
   text-decoration: none;
 }
 a:hover {
@@ -86,7 +86,7 @@ h6,
   padding: 20px 0;
 }
 .page-header {
-  background-color: #00d7ff;
+  background-color: #00D7FF;
   color: #bff5ff;
 }
 .page-header h1,
@@ -123,7 +123,7 @@ h6,
 }
 .page-subheader__link:hover,
 .page-subheader__link:focus {
-  border-bottom-color: #00d7ff;
+  border-bottom-color: #00D7FF;
   outline: none;
   text-decoration: none;
 }
@@ -157,7 +157,7 @@ h6,
 kbd {
   background-color: #fafafa;
   border-radius: 3px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-bottom-color: #c2c2c2;
   border-top-color: #d6d6d6;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 0 0 rgba(255, 255, 255, 0.7) inset;

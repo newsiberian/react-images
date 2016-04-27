@@ -1,38 +1,42 @@
 import React, { Component, PropTypes } from 'react';
-import { create } from 'jss';
-import reactJss from 'react-jss';
-import camelCase from 'jss-camel-case';
-import px from 'jss-px';
-import nested from 'jss-nested';
-import vendorPrefixer from 'jss-vendor-prefixer';
+// import { create } from 'jss';
+// import reactJss from 'react-jss';
+// import camelCase from 'jss-camel-case';
+// import px from 'jss-px';
+// import nested from 'jss-nested';
+// import vendorPrefixer from 'jss-vendor-prefixer';
 import Swipeable from 'react-swipeable';
 
-export let jss = create();
-export let useSheet = reactJss(jss);
-jss.use(camelCase());
-jss.use(nested());
-jss.use(px());
-jss.use(vendorPrefixer());
+// export let jss = create();
+// export let useSheet = reactJss(jss);
+// jss.use(camelCase());
+// jss.use(nested());
+// jss.use(px());
+// jss.use(vendorPrefixer());
+
+import look, { StyleSheet } from 'react-look';
 
 import utils from './utils';
 import Fade from './Fade';
 import Icon from './Icon';
 import Portal from './Portal';
 
-import defaultStyles from './styles/default';
+import styles from './styles/default';
+
+const c = StyleSheet.combineStyles;
 
 class Lightbox extends Component {
 	static theme (themeStyles) {
-		const extStyles = Object.assign({}, defaultStyles);
+		const extStyles = Object.assign({}, styles);
 		for (const key in extStyles) {
 			if (key in themeStyles) {
-				extStyles[key] = Object.assign({}, defaultStyles[key], themeStyles[key]);
+				extStyles[key] = Object.assign({}, styles[key], themeStyles[key]);
 			}
 		}
 		return extStyles;
 	}
 
-	constructor () {
+	constructor() {
 		super();
 
 		this.close = this.close.bind(this);
@@ -45,7 +49,7 @@ class Lightbox extends Component {
 		this.state = {};
 	}
 
-	componentWillReceiveProps (nextProps) {
+	componentWillReceiveProps(nextProps) {
 		if (nextProps.isOpen && nextProps.enableKeyboardInput) {
 			if (utils.canUseDOM) window.addEventListener('keydown', this.handleKeyboardInput);
 			if (utils.canUseDOM) window.addEventListener('resize', this.handleResize);
@@ -56,13 +60,17 @@ class Lightbox extends Component {
 		}
 
 		if (nextProps.isOpen) {
-			if (utils.canUseDOM) document.body.style.overflow = 'hidden';
+			if (utils.canUseDOM) {
+				document.body.style.overflow = 'hidden';
+			}
 		} else {
-			if (utils.canUseDOM) document.body.style.overflow = null;
+			if (utils.canUseDOM) {
+				document.body.style.overflow = null;
+			}
 		}
 	}
 
-	close (e) {
+	close(e) {
 		if (e.target.id !== 'react-images-container') return;
 
 		if (this.props.backdropClosesModal && this.props.onClose) {
@@ -70,7 +78,7 @@ class Lightbox extends Component {
 		}
 	}
 
-	gotoNext (event) {
+	gotoNext(event) {
 		if (this.props.currentImage === (this.props.images.length - 1)) return;
 		if (event) {
 			event.preventDefault();
@@ -79,7 +87,7 @@ class Lightbox extends Component {
 		this.props.onClickNext();
 	}
 
-	gotoPrev (event) {
+	gotoPrev(event) {
 		if (this.props.currentImage === 0) return;
 		if (event) {
 			event.preventDefault();
@@ -88,17 +96,17 @@ class Lightbox extends Component {
 		this.props.onClickPrev();
 	}
 
-	handleImageClick (e) {
+	handleImageClick(e) {
 		if (!this.props.onClickShowNextImage) return;
 
 		this.gotoNext(e);
 	}
 
-	handleImageLoad (e, index) {
+	handleImageLoad(e, index) {
 		// console.log('image', index, 'loaded', e);
 	}
 
-	handleKeyboardInput (event) {
+	handleKeyboardInput(event) {
 		if (event.keyCode === 37) {
 			this.gotoPrev(event);
 			return true;
@@ -112,20 +120,20 @@ class Lightbox extends Component {
 		return false;
 	}
 
-	handleResize () {
+	handleResize() {
 		if (!utils.canUseDOM) return;
 		this.setState({
 			windowHeight: window.innerHeight || 0,
 		});
 	}
 
-	renderArrowNext () {
+	renderArrowNext() {
 		if (this.props.currentImage === (this.props.images.length - 1)) return null;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 		return (
 			<button title="Next (Right arrow key)"
 				type="button"
-				className={`${classes.arrow} ${classes.arrowNext}`}
+				className={c(styles.arrow, styles.arrowNext)}
 				onClick={this.gotoNext}
 				onTouchEnd={this.gotoNext}
 			>
@@ -134,14 +142,14 @@ class Lightbox extends Component {
 		);
 	}
 
-	renderArrowPrev () {
+	renderArrowPrev() {
 		if (this.props.currentImage === 0) return null;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 
 		return (
 			<button title="Previous (Left arrow key)"
 				type="button"
-				className={`${classes.arrow} ${classes.arrowPrev}`}
+				className={c(styles.arrow, styles.arrowPrev)}
 				onClick={this.gotoPrev}
 				onTouchEnd={this.gotoPrev}
 			>
@@ -150,13 +158,13 @@ class Lightbox extends Component {
 		);
 	}
 
-	renderCloseButton () {
+	renderCloseButton() {
 		if (!this.props.showCloseButton) return null;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 
 		return (
-			<div className={classes.closeBar}>
-				<button title="Close (Esc)" className={classes.closeButton} onClick={this.props.onClose}>
+			<div className={styles.closeBar}>
+				<button title="Close (Esc)" className={styles.closeButton} onClick={this.props.onClose}>
 					<Icon type="close" />
 				</button>
 			</div>
@@ -165,18 +173,18 @@ class Lightbox extends Component {
 
 	renderDialog () {
 		if (!this.props.isOpen) return null;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 
 		return (
 			<Fade id="react-images-container"
 				key="dialog"
 				duration={250}
-				className={classes.container}
+				className={styles.container}
 				onClick={this.close}
 				onTouchEnd={this.close}
 			>
-				<span className={classes.contentHeightShim} />
-				<div className={classes.content}>
+				<span className={styles.contentHeightShim} />
+				<div className={styles.content}>
 					{this.renderCloseButton()}
 					{this.renderImages()}
 				</div>
@@ -187,27 +195,27 @@ class Lightbox extends Component {
 	}
 	renderFooter (caption) {
 		const { currentImage, images, showImageCount } = this.props;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 
 		if (!caption && !showImageCount) return null;
 
 		const imageCount = showImageCount
-			? <div className={classes.footerCount}>{currentImage + 1} of {images.length}</div>
+			? <div className={styles.footerCount}>{currentImage + 1} of {images.length}</div>
 			: null;
 		const figcaption = caption
-			? <figcaption className={classes.footerCaption}>{caption}</figcaption>
+			? <figcaption className={styles.footerCaption}>{caption}</figcaption>
 			: null;
 
 		return (
-			<div className={classes.footer}>
+			<div className={styles.footer}>
 				{imageCount}
 				{figcaption}
 			</div>
 		);
 	}
-	renderImages () {
+	renderImages() {
 		const { images, currentImage } = this.props;
-		const { classes } = this.props.sheet;
+		// const { classes } = this.props.sheet;
 		const { windowHeight } = this.state;
 
 		if (!images || !images.length) return null;
@@ -224,11 +232,11 @@ class Lightbox extends Component {
 
 		return (
 			<figure key={`image ${currentImage}`}
-				className={classes.figure}
+				className={styles.figure}
 				style={{ maxWidth: this.props.width }}
 			>
 				<Swipeable onSwipedLeft={this.gotoNext} onSwipedRight={this.gotoPrev} >
-					<img className={classes.image}
+					<img className={styles.image}
 						onClick={this.handleImageClick}
 						onLoad={e => this.handleImageLoad(e, currentImage)}
 						sizes={sizes}
@@ -244,7 +252,7 @@ class Lightbox extends Component {
 			</figure>
 		);
 	}
-	render () {
+	render() {
 		return (
 			<Portal>
 				{this.renderDialog()}
@@ -286,4 +294,4 @@ Lightbox.defaultProps = {
 	width: 900,
 };
 
-export default useSheet(Lightbox, defaultStyles);
+export default look(Lightbox);

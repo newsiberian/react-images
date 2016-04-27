@@ -1,9 +1,11 @@
+import { StyleSheet } from 'react-look';
+
 const CLOSE_SIZE = 20;
 const ARROW_HEIGHT = 120;
 const GAP_BOTTOM = 50;
 const GAP_TOP = 40;
 
-const styles = {
+const styles = StyleSheet.create({
 	// SCENE
 	container: {
 		backgroundColor: 'rgba(0,0,0,0.8)',
@@ -140,6 +142,6 @@ const styles = {
 		top: 0,
 		width: CLOSE_SIZE + 20,
 	},
-};
+});
 
 export default styles;

@@ -1,7 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Lightbox from 'react-images';
+// import Lightbox from 'react-images-look';
+import { Presets, LookRoot } from 'react-look';
 import Gallery from './components/Gallery';
+
+const config = Presets['react-dom'];
 
 function capitalizeFirstLetter(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
@@ -24,11 +27,13 @@ const IMAGES_PRELOAD = IMAGE_MAP.map(img => {
 });
 
 render (
-	<div>
-		<p style={{ marginBottom: 40 }}>Use your keyboard to navigate <kbd>left</kbd> <kbd>right</kbd> <kbd>esc</kbd> &mdash; Also, try resizing your browser window.</p>
-		<Gallery images={IMAGE_MAP} />
-		<p>Images courtesy of <a href="http://gratisography.com/" target="_blank">Gratisography</a></p>
-		<div style={{ display: 'none' }}>{IMAGES_PRELOAD}</div>
-	</div>,
+	<LookRoot config={config}>
+		<div>
+			<p style={{ marginBottom: 40 }}>Use your keyboard to navigate <kbd>left</kbd> <kbd>right</kbd> <kbd>esc</kbd> &mdash; Also, try resizing your browser window.</p>
+			<Gallery images={IMAGE_MAP} />
+			<p>Images courtesy of <a href="http://gratisography.com/" target="_blank">Gratisography</a></p>
+			<div style={{ display: 'none' }}>{IMAGES_PRELOAD}</div>
+		</div>
+	</LookRoot>,
 	document.getElementById('example')
 );
